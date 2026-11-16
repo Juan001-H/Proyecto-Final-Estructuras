@@ -709,7 +709,8 @@ public class VentanaPrincipal extends JFrame {
             boolean exito = motorTransaccional.transferir(uO, bO, uD, bD, monto, idTx);
 
             if (exito) {
-                Transaccion txNueva = new Transaccion(idTx, "TRANSFERENCIA", monto, codBO, codBD);
+                // Se registra con el mismo tipo que usa el motor para que GestorReversiones la pueda revertir
+                Transaccion txNueva = new Transaccion(idTx, "TRANSFERENCIA_ENVIADA", monto, codBO, codBD);
                 gestorReversiones.registrarTransaccionParaReversion(txNueva);
                 areaLogOperaciones.append("[ÉXITO] Transferencia de $" + String.format(Locale.US, "%.2f", monto) + " COP realizada (ID: " + idTx + ")\n");
             } else {
