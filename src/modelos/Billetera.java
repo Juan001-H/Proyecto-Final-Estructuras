@@ -34,6 +34,10 @@ public class Billetera {
     public void agregarTransaccion(Transaccion tx) {
         historialTransacciones.agregar(tx);
     }
+    // Método para obtener el saldo formateado como texto con 2 decimales (Ej: "500.00")
+public String getSaldoFormateado() {
+    return String.format(java.util.Locale.US, "%.2f", this.saldo);
+}
 
     // Getters y Setters
     public String getCodigo() { return codigo; }
