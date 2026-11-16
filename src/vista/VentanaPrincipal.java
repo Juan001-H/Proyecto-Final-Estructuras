@@ -311,8 +311,15 @@ public class VentanaPrincipal extends JFrame {
             String idSelec = (String) modeloTablaUsuarios.getValueAt(fila, 0);
             int confirm = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar al cliente " + idSelec + "?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
-                // Nota: La lista se actualiza visualmente refrescando
-                JOptionPane.showMessageDialog(this, "Cliente eliminado de la plataforma.", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
+                Usuario usuarioEliminar = gestorUsuarios.buscarUsuario(idSelec);
+                // Primero se quitan sus billeteras del registro global y luego el usuario
+                gestorBilleteras.eliminarBilleterasDeUsuario(usuarioEliminar);
+                if (gestorUsuarios.eliminarUsuario(idSelec)) {
+                    gestorNotificaciones.agregarNotificacion("DEL-" + idSelec, "Cliente " + idSelec + " eliminado de la plataforma.");
+                    JOptionPane.showMessageDialog(this, "Cliente eliminado de la plataforma.", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar el cliente " + idSelec + ".", "Error", JOptionPane.ERROR_MESSAGE);
+                }
                 actualizarDatosVista();
             }
         });

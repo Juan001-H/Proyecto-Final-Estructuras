@@ -37,6 +37,18 @@ public class GestorUsuarios {
         return usuariosPorId.buscar(idUsuario);
     }
 
+    // Eliminar usuario: se quita de la tabla hash y de la lista de usuarios
+    public boolean eliminarUsuario(String idUsuario) {
+        Usuario usuario = buscarUsuario(idUsuario);
+        if (usuario == null) {
+            System.out.println("[ERROR] El usuario con ID " + idUsuario + " no existe.");
+            return false;
+        }
+        usuariosPorId.eliminar(idUsuario);
+        listaUsuarios.eliminar(usuario);
+        return true;
+    }
+
     public boolean existeUsuario(String idUsuario) {
         return buscarUsuario(idUsuario) != null;
     }

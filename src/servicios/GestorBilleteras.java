@@ -46,4 +46,12 @@ public class GestorBilleteras {
         if (codigo == null) return null;
         return billeterasGlobales.buscar(codigo);
     }
+
+    // Eliminar del registro global todas las billeteras de un usuario (se usa al eliminar el usuario)
+    public void eliminarBilleterasDeUsuario(Usuario usuario) {
+        if (usuario == null) return;
+        for (int i = 0; i < usuario.getBilleteras().getSize(); i++) {
+            billeterasGlobales.eliminar(usuario.getBilleteras().obtener(i).getCodigo());
+        }
+    }
 }
